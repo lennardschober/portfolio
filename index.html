@@ -7,12 +7,90 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/index.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 </head>
 
 <body>
-    <div class="container">
-        <div class="introtext">Lennard<br>Schober</div>
+    <div class="header">
+        <div class="progress-container">
+            <div class="progress-bar" id="myBar"></div>
+        </div>
     </div>
+    <section class="introsection" id="introsection">
+        <video id="intro-video" preload="true" autoplay="autoplay" muted>
+            <source src="assets/intro_video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <img src="assets/intro_image.png" id="intro-image" type="img/png" style="display: none;">
+        <!-- Social Media Icons -->
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/lennardschober" target="_blank" class="social-icon">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://github.com/lennardschober" target="_blank" class="social-icon">
+                <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="" target="_blank" class="social-icon" id="mailto">
+                <i class="fa-solid fa-envelope"></i>
+            </a>
+        </div>
+    </section>
+    <section class="portfolio" id="portfolio">
+        <div class="features">
+            <div class="feature hidden">
+                <a href="#about-me" class="feature-content">
+                    <strong>About me</strong>
+                    <span>Background & Interests</span>
+                </a>
+            </div>
+            <div class="feature hidden">
+                <a href="#education" class="feature-content">
+                    <strong>Education</strong>
+                    <span>Academic Qualifications</span>
+                </a>
+            </div>
+            <div class="feature hidden">
+                <a href="#experience" class="feature-content">
+                    <strong>Experience</strong>
+                    <span>Jobs & Internships</span>
+                </a>
+            </div>
+            <div class="feature hidden">
+                <a href="#projects" class="feature-content">
+                    <strong>Projects</strong>
+                    <span>Portfolio Highlights</span>
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class="about-me" id="about-me">
+        <div class="bridge" id="bridge">
+            <div class="quote-container" id="quote-container">
+                <blockquote id="blockquote">
+                    I much prefer the sharpest criticism of a single intelligent man to the thoughtless approval of the
+                    masses.
+                </blockquote>
+                <cite id="cite">Johannes Kepler</cite>
+            </div>
+        </div>
+    </section>
+    <section class="education" id="education">
+    </section>
+    <section class="experience" id="experience">
+    </section>
+    <section class="projects" id="projects">
+    </section>
+
+    <div class="glow-effect" id="glowEffect"></div>
+    <script src="js/index.js"></script>
 </body>
+
+<footer class="footer">
+    <div class="container">
+        &copy; Lennard Schober 2024
+    </div>
+</footer>
 
 </html>
