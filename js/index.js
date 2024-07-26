@@ -13,6 +13,7 @@ let clientScrollY = -100;
 
 // Update the position of the glowing effect based on the cursor's position
 document.addEventListener('mousemove', (ev) => {
+    ev.target.style.cursor = "none";
     clientScrollX = ev.clientX;
     clientScrollY = ev.clientY;
     mouseX = ev.pageX;
@@ -118,8 +119,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
         else if (-250 >= scrollDiff) {
             if (!changed) {
+                console.log(distToTop);
                 bridge.style.position = "relative";
-                bridge.style.transform = `translate(-25vw, ${distToTop}px)`;
+                bridge.style.transform = `translate(-25vw, 500px)`;
                 changed = true;
             }
         }
@@ -130,11 +132,26 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     };
 
+    // about me fade-in
+    const characteristics = document.querySelectorAll('.characteristics.hidden');
+    const revealAboutMe = () => {
+        const scrollPosition = window.innerHeight + window.scrollY;
+        characteristics.forEach(element => {
+            if (element.getBoundingClientRect().top + window.scrollY + 0.31 * window.scrollY < scrollPosition) {
+                element.classList.remove('hidden');
+            }
+            else {
+                element.classList.add('hidden');
+            }
+        });
+    };
+
     // dynamic font size for quote
     function update() {
 
         revealFeature();
         revealBridge();
+        revealAboutMe();
 
         /*
         *   RESIZE QUOTE FONT

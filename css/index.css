@@ -25,7 +25,7 @@ body {
     font-family: Helvetica, sans-serif;
     color: var(--text-color);
     background-color: black;
-    cursor: none;
+    cursor: none !important;
     justify-content: center;
     align-items: center;
     height: 100%;
@@ -82,18 +82,12 @@ footer {
     width: 25px;
     /* Adjust the size of the glow */
     height: 25px;
-    /* Adjust the size of the glow */
     background-color: rgba(255, 255, 255, .8);
-    /* Adjust the color and opacity */
     border-radius: 100%;
     pointer-events: none;
-    /* Make sure it doesn't interfere with mouse events */
     box-shadow: 0 0 25px rgba(255, 255, 255, .8);
-    /* Adjust the glow effect */
     transform: translate(-50%, -50%);
-    /* Center the element on the cursor */
     transition: width 0.3s var(--my-bezier), height 0.3s var(--my-bezier);
-    /* Animate width and height */
     z-index: 10000;
 }
 
@@ -104,12 +98,34 @@ footer {
 
 .container {
     display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100%;
     width: 100%;
-    text-align: center;
     padding: 2rem;
+    position: relative;
+}
+
+.container.cols {
+    padding: 0;
+}
+
+.characteristics {
+    border: 2px solid red;
+    position: absolute;
+    top: calc(500px + 20dvh);
+    right: 5vw;
+    width: 50%;
+    height: 60dvh;
+    padding: 0;
+    margin: 0;
+    font-family: "New Century Schoolbook", "TeX Gyre Schola", "serif";
+    font-size: 2rem;
+    opacity: 1;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.characteristics.hidden {
+    opacity: 0;
+    transform: translateX(15vw);
 }
 
 *,
@@ -128,7 +144,6 @@ footer {
     grid-row-gap: 0.3rem;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(1, 1fr);
-    cursor: none;
 }
 
 .feature {
@@ -140,7 +155,6 @@ footer {
     overflow: hidden;
     display: flex;
     pointer-events: none;
-    cursor: none;
     opacity: 1;
     min-height: 7rem;
     transition: opacity 0.5s ease, transform 0.5s ease;
@@ -155,7 +169,6 @@ footer {
         height: 100%;
         width: 100%;
         inset: 0px;
-        cursor: none;
         border-radius: inherit;
         background: radial-gradient(800px circle at var(--x-px) var(--y-px),
                 rgba(255, 255, 255, 0.3),
@@ -164,19 +177,16 @@ footer {
 
     &:before {
         z-index: 1;
-        cursor: none;
     }
 
     &:after {
         opacity: 0;
         z-index: 2;
         transition: opacity 0.4s ease;
-        cursor: none;
     }
 
     &:hover:after {
         opacity: 1;
-        cursor: none;
     }
 }
 
@@ -184,7 +194,6 @@ footer {
     opacity: 0;
     pointer-events: none;
     transform: translateX(5vw);
-    cursor: none;
 }
 
 @keyframes fadeIn {
@@ -212,7 +221,6 @@ footer {
     padding: 1rem;
     font-size: 1vw;
     pointer-events: all;
-    cursor: none;
 
     >strong {
         align-self: self-end;
@@ -268,14 +276,12 @@ footer {
     z-index: 1;
     /* Make sure icons are above the video */
     pointer-events: all;
-    cursor: none;
 }
 
 .social-icon {
     color: #fff;
     font-size: 3dvh;
     margin: 1.5rem;
-    cursor: none;
     opacity: 0;
     pointer-events: none;
     transform: translateY(15dvh);
