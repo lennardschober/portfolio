@@ -10,13 +10,29 @@
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+
+    <!-- GSAP core library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+
+    <!-- Draggable plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/Draggable.min.js"></script>
+
+    <!-- Inertia plugin (only available with a paid GSAP membership or via the following link) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/InertiaPlugin.min.js"></script>
+
+    <link rel="preload" href="assets/img/personal_info.jpeg" as="image">
+    <link rel="preload" href="assets/img/education_info.jpeg" as="image">
+    <link rel="preload" href="assets/img/skills_info.HEIC" as="image">
+    <link rel="preload" href="assets/img/interests_info.jpeg" as="image">
 </head>
 
 <body>
     <div class="header">
+        <!--
         <div class="progress-container">
             <div class="progress-bar" id="myBar"></div>
         </div>
+        -->
     </div>
     <section class="introsection" id="introsection">
         <video id="intro-video" preload="true" autoplay="autoplay" muted>
@@ -51,12 +67,14 @@
                     <span>Academic Qualifications</span>
                 </a>
             </div>
+            <!--
             <div class="feature hidden">
                 <a href="#experience" class="feature-content">
                     <strong>Experience</strong>
                     <span>Jobs & Internships</span>
                 </a>
             </div>
+            -->
             <div class="feature hidden">
                 <a href="#projects" class="feature-content">
                     <strong>Projects</strong>
@@ -66,36 +84,233 @@
         </div>
     </section>
     <section class="about-me" id="about-me">
-        <div class="container cols">
-            <div class="bridge" id="bridge">
-                <div class="quote-container" id="quote-container">
-                    <blockquote id="blockquote">
-                        I much prefer the sharpest criticism of a single intelligent man to the thoughtless approval of
-                        the masses.
-                    </blockquote>
-                    <cite id="cite">Johannes Kepler</cite>
+        <h1>ABOUT ME</h1>
+        <div class="container" style="margin-top: 150px;">
+            <div class="quote">"I am always doing that which I cannot do, in order that I may learn how to do it"<br>
+                <span style="color: var(--primary-color); display: inline;">- Vincent van Gogh</span>
+            </div>
+        </div>
+        <div class="container" style="padding-bottom: 35vh;">
+            <div class="characteristics">
+                As a <span style="color: var(--primary-color); display: inline;">mathematician</span> and
+                <span style="color: var(--primary-color); display: inline;">computer scientist</span>, I thrive on
+                challenges that push me beyond my comfort zone.
+                Whether it is diving into <span style="color: var(--primary-color); display: inline;">new
+                    technologies</span>, mastering
+                <span style="color: var(--primary-color); display: inline;">complex algorithms</span>, or tackling
+                <span style="color: var(--primary-color); display: inline;">innovative projects</span>, I embrace the
+                unknown as a way to continuously grow.
+                Every new challenge is an opportunity to <span
+                    style="color: var(--primary-color); display: inline;">learn</span>,
+                <span style="color: var(--primary-color); display: inline;">adapt</span>, and
+                <span style="color: var(--primary-color); display: inline;">improve</span> — because the path to mastery
+                is
+                through constant exploration and persistence.
+            </div>
+        </div>
+
+        <!-- BARS WITH IMAGES -->
+        <div class="info-bars" style="padding-bottom: 20vh;">
+            <div class="info-bar">
+                <div class="image-container">
+                    <img src="assets/img/personal_info.jpeg" alt="Personal Info" class="bar-image"
+                        style="transform-origin: 50% 100%;">
+                    <div class="info">
+                        <h3>Lennard Schober, 22</h3>
+                        <p>- Mathematician and computer scientist</p>
+                        <p>- Can solve a Rubik's Cube</p>
+                    </div>
                 </div>
             </div>
-            <div class="characteristics hidden">
-                My name is Lennard Schober (...)
+            <div class="info-bar">
+                <div class="image-container">
+                    <img src="assets/img/education_info.jpeg" alt="Education Info" class="bar-image"
+                        style="transform-origin: 50% 40%;">
+                    <div class="info">
+                        <h3>EDUCATION</h3>
+                        <p>- Pursuing MSc in Mathematics</p>
+                        <p>- BSc Mathematics & BSc Computer Science</p>
+                    </div>
+                </div>
+            </div>
+            <div class="info-bar">
+                <div class="image-container">
+                    <img src="assets/img/skills_info.HEIC" alt="Skills Info" class="bar-image"
+                        style="transform-origin: 50% 80%;">
+                    <div class="info">
+                        <h3>EXPERIENCE & SKILLS</h3>
+                        <p>- Experience: Currently a working student at Provinzial Münster in the field of deep
+                            learning</p>
+                        <p>- Skills: ML, problem solving, mathematics, coding</p>
+                    </div>
+                </div>
+            </div>
+            <div class="info-bar">
+                <div class="image-container">
+                    <img src="assets/img/interests_info.jpeg" alt="Interests Info" class="bar-image"
+                        style="transform-origin: 50% 80%;">
+                    <div class="info">
+                        <h3>HOBBIES</h3>
+                        <p>- Working out, traveling & coding</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Download Resume Button -->
+        <div class="resume-download">
+            <a href="assets/pdf/CV_LennardSchober.pdf" id="resume-view-btn" class="resume-button" target="_blank">
+                <span>View Resume</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="education" id="education">
+        <div class="education-container">
+            <h1>EDUCATION</h1>
+            <div class="timeline">
+                <div class="timeline-item" style="height: 3vh;">
+                    <div class="timeline-date">Oct. 2020</div>
+                    <div class="timeline-description">
+                        <h3>Started Bachelor's in Mathematics</h3>
+                        <p>RWTH Aachen University</p>
+                    </div>
+                </div>
+                <div class="timeline-item" style="height: 12vh;">
+                    <div class="timeline-date">Apr. 2021</div>
+                    <div class="timeline-description">
+                        <h3>Started Bachelor's in Computer Science</h3>
+                        <p>RWTH Aachen University</p>
+                    </div>
+                </div>
+                <div class="timeline-item-none">
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Sep. 2023</div>
+                    <div class="timeline-description">
+                        <h3>Finished Bachelor's in Mathematics</h3>
+                        <p>RWTH Aachen University</p>
+                    </div>
+                </div>
+                <div class="timeline-item" style="height: 3vh;">
+                    <div class="timeline-date">Mar. 2024</div>
+                    <div class="timeline-description">
+                        <h3>Finished Bachelor's in Computer Science</h3>
+                        <p>RWTH Aachen University</p>
+                    </div>
+                </div>
+                <div class="timeline-item" style="height: 3vh;">
+                    <div class="timeline-date">Apr. 2024</div>
+                    <div class="timeline-description">
+                        <h3>Started Master's in Mathematics</h3>
+                        <p>University of Münster</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="education-image">
+                <img src="assets/img/plot.png" alt="Plot">
             </div>
         </div>
     </section>
-    <section class="education" id="education">
-    </section>
+
+    <!--
     <section class="experience" id="experience">
+        <h1>EXPERIENCE</h1>
     </section>
+    -->
+
     <section class="projects" id="projects">
+        <h1>PROJECTS</h1>
+        <div class="demoWrapper">
+            <!-- Card One -->
+            <div class="card box creative-pro" data-link="https://lennardschober.github.io/cs_visualized/">
+                <h3>CS Visualized</h3>
+                <p>Visualization of various algorithms in computer science.</p>
+                <p style="color: var(--text-color2);  margin-top: 0.5rem;">HTML / CSS / JS</p>
+                <img src="assets/img/cards/csv_icon.png">
+            </div>
+
+            <!-- Card Two -->
+
+            <div class="card box creative-pro"
+                data-link="https://github.com/lennardschober/ml-projects/tree/main/CaptchaSolver">
+                <h3>CAPTCHA Solver</h3>
+                <p>Solves 5-letter CAPTCHAS.</p>
+                <p style="color: var(--text-color2);  margin-top: 0.5rem;">Python / Tensorflow</p>
+                <img src="assets/img/cards/catpcha1_icon.png">
+                <img src="assets/img/cards/catpcha2_icon.png">
+            </div>
+
+            <!-- Card Three -->
+
+            <div class="card box creative-pro"
+                data-link="https://github.com/lennardschober/ml-projects/tree/main/RandomHandwrittenDigitsGenerator">
+                <h3>Digit Generator</h3>
+                <p>Generates images of seemingly handwritten digits.</p>
+                <p style="color: var(--text-color2);  margin-top: 0.5rem;">Python / Tensorflow</p>
+                <img src="assets/img/cards/digit_progress.gif">
+            </div>
+
+            <!-- Card Four  -->
+            <div class="card box creative-pro"
+                data-link="https://github.com/lennardschober/ml-projects/tree/main/MargotRobbie_or_JaimePressly">
+                <h3>Image Classifier</h3>
+                <p>Classifies images of Margot Robbie and Jaime Pressly.</p>
+                <p style="color: var(--text-color2);  margin-top: 0.5rem;">Python / Tensorflow</p>
+                <img src="assets/img/cards/classifier_icon.webp">
+            </div>
+
+            <!-- Card Five  -->
+            <div class="card box creative-pro"
+                data-link="https://huggingface.co/spaces/LennyS17/portrait-colorizer">
+                <h3>Portrait Colorizer</h3>
+                <p>Colorizes grayscale portraits.</p>
+                <p style="color: var(--text-color2);  margin-top: 0.5rem;">Python / Tensorflow</p>
+                <img src="assets/img/cards/colorizer_icon.jpg">
+            </div>
+
+            <!-- COMING SOON Card -->
+            <div class="card box creative-pro" data-link="">
+                <h3>Coming soon.</h3>
+                <p>I am always working on something interesting.</p>
+                <div class="spinner-container">
+                    <div class="lds-default">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!--
+            <!- - Card Six - ->
+            <div class="card box creative-pro" data-link="https://google.com">
+                <h3>Digit Generator</h3>
+                <p>Generates images of seemingly handwritten digits.</p>
+                <p style="color: var(--text-color2);">Python / Tensorflow</p>
+                <img src="assets/img/cards/digit_icon.png">
+            </div>
+            -->
+        </div>
+
     </section>
+
 
     <div class="glow-effect" id="glowEffect"></div>
     <script src="js/index.js"></script>
 </body>
 
 <footer class="footer">
-    <div class="container">
-        &copy; Lennard Schober 2024
-    </div>
+    &copy; Lennard Schober, All Rights Reserved
 </footer>
 
 </html>

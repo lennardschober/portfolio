@@ -68,14 +68,14 @@ videoEl.addEventListener("timeupdate", function () {
     }
 });
 
-// When the user scrolls the page, execute myFunction 
-window.onscroll = function () { progressBar() };
+// When the user scrolls the page, execute my function 
+/*window.onscroll = function () { progressBar() };
 function progressBar() {
     var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     var scrolled = (winScroll / height) * 100;
     document.getElementById("myBar").style.width = scrolled + "%";
-}
+}*/
 
 // reveal features on scroll
 document.addEventListener("DOMContentLoaded", async function () {
@@ -104,78 +104,54 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
     }, 4000);
 
+    function revealQuote() {
+        const section = document.querySelector(".about-me");
+        const quoteElement = document.querySelector(".quote");
 
-    // quote move-over
-    let changed = false;
-    const bridge = document.getElementById("bridge");
-    const revealBridge = () => {
-        const scrollPosition = window.innerHeight + window.scrollY;
-        const scrollDiff = scrollPosition - 1.5 * window.scrollY;
-        const distToTop = - document.getElementById("about-me").getBoundingClientRect().top;
-        if (-250 < scrollDiff && scrollDiff < 0) {
-            bridge.style.position = "fixed";
-            bridge.style.transform = `translateX(${0.1 * scrollDiff}vw)`;
-            changed = false;
-        }
-        else if (-250 >= scrollDiff) {
-            if (!changed) {
-                console.log(distToTop);
-                bridge.style.position = "relative";
-                bridge.style.transform = `translate(-25vw, 500px)`;
-                changed = true;
-            }
-        }
-        else {
-            bridge.style.transform = `translate(0, 0)`;
-            bridge.style.position = "relative";
-            changed = false;
-        }
-    };
+        // Get the top position of the section relative to the document
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
 
-    // about me fade-in
-    const characteristics = document.querySelectorAll('.characteristics.hidden');
-    const revealAboutMe = () => {
-        const scrollPosition = window.innerHeight + window.scrollY;
-        characteristics.forEach(element => {
-            if (element.getBoundingClientRect().top + window.scrollY + 0.31 * window.scrollY < scrollPosition) {
-                element.classList.remove('hidden');
-            }
-            else {
-                element.classList.add('hidden');
-            }
-        });
-    };
+        // Calculate the current scroll position (bottom of the viewport)
+        const scrollPosition = window.scrollY + window.innerHeight;
+
+        // Check if the scroll position has reached the section top + 50vh
+        if (scrollPosition >= sectionTop + 0.85 * window.innerHeight) {
+            quoteElement.classList.remove('hidden');
+        } else {
+            quoteElement.classList.add('hidden');
+        }
+    }
+
+
+    // Function to check when to reveal the elements
+    function revealAboutMe() {
+        const section = document.querySelector(".about-me");
+        const charElement = document.querySelector(".characteristics");
+
+        // Get the top position of the section relative to the document
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+
+        // Calculate the current scroll position (bottom of the viewport)
+        const scrollPosition = window.scrollY + window.innerHeight;
+
+        // Check if the scroll position has reached the section top + 50vh
+        if (scrollPosition >= sectionTop + 0.9 * window.innerHeight) {
+            charElement.classList.remove('hidden');
+        } else {
+            charElement.classList.add('hidden');
+        }
+    }
 
     // dynamic font size for quote
     function update() {
+        /*
+        *   HIDE CURSOR
+        */
+        glowEffect.classList.add("hidden");
 
         revealFeature();
-        revealBridge();
+        revealQuote();
         revealAboutMe();
-
-        /*
-        *   RESIZE QUOTE FONT
-        */
-        // quote
-        const quotecontainer = document.getElementById('blockquote');
-        const quoteText = document.getElementById('blockquote');
-        const quotecontainerWidth = quotecontainer.offsetWidth;
-        const quotecontainerHeight = quotecontainer.offsetHeight;
-        let fontSize = 16; // Start with a base font size in em units
-
-        quoteText.style.fontSize = fontSize + 'px';
-        while (quoteText.scrollWidth <= quotecontainerWidth && quoteText.scrollHeight <= quotecontainerHeight) {
-            fontSize += 0.5;
-            quoteText.style.fontSize = fontSize + 'px';
-        }
-
-        // Once it exceeds the container size, reduce the font size slightly
-        quoteText.style.fontSize = (fontSize - 0.5) + 'px';
-
-        // author
-        const authorText = document.getElementById('cite');
-        // Once it exceeds the container size, reduce the font size slightly
-        authorText.style.fontSize = 2 * (fontSize - 0.5) / 3 + 'px';
     }
 
     window.addEventListener('resize', update);
@@ -197,3 +173,199 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 });
+
+
+// CAROUSEL
+gsap.registerPlugin(Draggable);
+
+var cards = gsap.utils.toArray(".creative-pro"),
+    dragDistancePerRotation = 4000,
+    radius = 520,
+    proxy = document.createElement("div"),
+    progressWrap = gsap.utils.wrap(0, 1),
+    spin = gsap.fromTo(cards, {
+        rotationY: i => i * 360 / cards.length
+    }, {
+        rotationY: "-=360",
+        duration: 30,
+        ease: "none",
+        repeat: -1,
+        transformOrigin: "50% 50% " + -radius + "px"
+    }),
+    startProgress,
+    velocity = 0,      // Track velocity
+    lastX = 0,         // Last X position
+    lastTime = 0,      // Time for velocity calculation
+    deceleration = 0.95, // Deceleration factor
+    isDragging = false;
+
+Draggable.create(proxy, {
+    trigger: ".demoWrapper",
+    type: "x",
+    allowNativeTouchScrolling: true,
+    onPress() {
+        gsap.killTweensOf(spin);
+        spin.timeScale(0);
+        startProgress = spin.progress();
+        isDragging = true;
+        lastX = this.x;
+        lastTime = Date.now(); // Record the starting time
+    },
+    onDrag() {
+        let now = Date.now();
+        let deltaX = this.x - lastX;  // Change in X position
+        let deltaTime = now - lastTime; // Time difference since last drag event
+
+        // Calculate velocity (distance over time)
+        velocity = deltaX / deltaTime;
+
+        lastX = this.x;
+        lastTime = now;
+
+        updateRotation.call(this);
+    },
+    onRelease() {
+        isDragging = false;
+        simulateInertia();
+    }
+});
+
+function updateRotation() {
+    let p = startProgress + (this.startX - this.x) / dragDistancePerRotation;
+    spin.progress(progressWrap(p));
+}
+
+function simulateInertia() {
+    if (isDragging) return;
+
+    if (Math.abs(velocity) > 0.01) {  // Small threshold to stop the animation when it's slow enough
+        // Move based on velocity
+        startProgress -= velocity * 0.01;  // Adjust progress based on velocity
+        spin.progress(progressWrap(startProgress));
+
+        // Decrease velocity over time (simulate friction/inertia)
+        velocity *= deceleration;
+
+        // Use requestAnimationFrame for smooth animation
+        requestAnimationFrame(simulateInertia);
+    } else {
+        // Once inertia ends, return to normal spin
+        gsap.to(spin, { timeScale: 1, duration: 1 });
+    }
+}
+
+// Function to check if mouse is inside a bounding box
+function isMouseInside(boundingBox, mousePosition) {
+    return (
+        mousePosition.x >= boundingBox.left &&
+        mousePosition.x <= boundingBox.right &&
+        mousePosition.y >= boundingBox.top &&
+        mousePosition.y <= boundingBox.bottom
+    );
+}
+
+// Function to get the current mouse position
+function getMousePosition() {
+    return {
+        x: mouseX2,
+        y: mouseY2
+    };
+}
+
+// Track mouse position
+let mouseX2 = 0;
+let mouseY2 = 0;
+
+document.addEventListener('mousemove', (event) => {
+    mouseX2 = event.clientX; // Update mouseX with current mouse position
+    mouseY2 = event.clientY; // Update mouseY with current mouse position
+});
+
+function updateCardInteraction() {
+    const mousePosition = getMousePosition(); // Get current mouse position
+    const boxes = document.querySelectorAll(".card"); // Select the cards (update class if necessary)
+
+    let hoveredCard = null; // Variable to store the card with the largest bounding box
+
+    boxes.forEach(card => {
+        const boundingBox = card.getBoundingClientRect(); // Get the bounding box for each card
+
+        // Check if the mouse is inside the bounding box
+        if (isMouseInside(boundingBox, mousePosition)) {
+            // If the mouse is inside, check for the largest card
+            if (!hoveredCard) {
+                hoveredCard = card; // First card hovered
+            } else {
+                // Compare areas: width * height
+                const currentArea = boundingBox.width * boundingBox.height;
+                const hoveredArea = hoveredCard.getBoundingClientRect().width * hoveredCard.getBoundingClientRect().height;
+
+                // Update hoveredCard if the current card has a larger area
+                if (currentArea > hoveredArea) {
+                    hoveredCard = card;
+                }
+            }
+        }
+    });
+
+    // Remove the 'hovered' class from all cards
+    boxes.forEach(card => {
+        card.classList.remove("hovered");
+    });
+
+    // If we found a hovered card, add the 'hovered' class to it
+    if (hoveredCard) {
+        hoveredCard.classList.add("hovered");
+        return hoveredCard;
+    }
+
+    return null;
+}
+
+// Variable to control the animation loop
+let animationId;
+
+// Start the animation loop
+function startAnimationLoop() {
+    animationId = requestAnimationFrame(update); // Call the update function on every frame
+}
+
+// Function that gets called every frame
+function update() {
+    updateCardInteraction(); // Call your card interaction function
+    animationId = requestAnimationFrame(update); // Request the next frame
+}
+
+// Function to stop the animation loop (if needed)
+function stopAnimationLoop() {
+    cancelAnimationFrame(animationId);
+}
+
+// Start the animation loop when needed
+startAnimationLoop();
+
+document.addEventListener("click", (event) => {
+    const mousePosition = getMousePosition(event);
+    const boxes = document.querySelectorAll(".card"); // Select the cards
+
+    boxes.forEach(card => {
+        const boundingBox = card.getBoundingClientRect(); // Get the bounding box for each card
+        // Check if the mouse is inside the bounding box
+        let myCard = updateCardInteraction();
+        if (myCard) {
+            const link = myCard.getAttribute("data-link"); // Get the link from the data attribute
+            if (link) {
+                window.open(link, "_blank"); // Open the link in a new tab
+            }
+        }
+    });
+});
+
+
+
+// CURSOR INVERT
+document.onmousemove = function (e) {
+    document.body.style.setProperty('--x', (e.clientX) + 'px');
+    document.body.style.setProperty('--y', (e.clientY) + 'px');
+
+}
