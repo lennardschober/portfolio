@@ -187,7 +187,7 @@ var cards = gsap.utils.toArray(".creative-pro"),
         rotationY: i => i * 360 / cards.length
     }, {
         rotationY: "-=360",
-        duration: 30,
+        duration: 15,
         ease: "none",
         repeat: -1,
         transformOrigin: "50% 50% " + -radius + "px"
@@ -196,8 +196,8 @@ var cards = gsap.utils.toArray(".creative-pro"),
     velocity = 0,      // Track velocity
     lastX = 0,         // Last X position
     lastTime = 0,      // Time for velocity calculation
-    deceleration = 0.95, // Deceleration factor
-    isDragging = false;
+    deceleration = 0.9, // Deceleration factor
+    isDragging = true;
 
 Draggable.create(proxy, {
     trigger: ".demoWrapper",
