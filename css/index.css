@@ -41,6 +41,7 @@ body {
     /* Optional: Adds smooth scrolling */
     overflow-y: scroll;
     /* Ensures vertical scrolling */
+    overflow-x: hidden;
 }
 
 section {
@@ -742,7 +743,6 @@ h1 {
 .projects {
     background-color: var(--background-gradient1);
     overflow-x: hidden;
-
 }
 
 .demoWrapper {
@@ -754,10 +754,35 @@ h1 {
     align-items: center;
     transform-style: preserve-3d;
     /* padding: 1px;*/
-    margin-bottom: 250px;
     margin-top: 200px;
     /*   background-color: #000; */
     cursor: none;
+}
+
+.carousel-footer {
+    text-align: center;
+    justify-content: space-between; /* Push child elements to extremes */
+    font-size: 1.2rem; /* Adjust size as needed */
+    position: absolute;
+    top: 50%; /* Vertically center */
+    left: 50%; /* Horizontally center */
+    transform: translate(-50%, -50%) translateZ(-50px); /* Move backward in 3D space */
+    transition: 0.5s ease-in-out;
+    animation: pulseColor 1s infinite ease-in-out;
+}
+
+.carousel-footer.hidden {
+    opacity: 0;
+    transition: 0.5s ease-in-out;
+}
+
+@keyframes pulseColor {
+    0%, 100% {
+        color: #444;
+    }
+    50% {
+        color: #777;
+    }
 }
 
 .box {

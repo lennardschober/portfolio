@@ -196,8 +196,10 @@ var cards = gsap.utils.toArray(".creative-pro"),
     velocity = 0,      // Track velocity
     lastX = 0,         // Last X position
     lastTime = 0,      // Time for velocity calculation
-    deceleration = 0.9, // Deceleration factor
-    isDragging = true;
+    deceleration = 0.975, // Deceleration factor
+    isDragging = false;
+
+const carouselFooter = document.querySelector(".carousel-footer");
 
 Draggable.create(proxy, {
     trigger: ".demoWrapper",
@@ -210,6 +212,8 @@ Draggable.create(proxy, {
         isDragging = true;
         lastX = this.x;
         lastTime = Date.now(); // Record the starting time
+        
+        carouselFooter.classList.add('hidden');
     },
     onDrag() {
         let now = Date.now();
@@ -226,6 +230,8 @@ Draggable.create(proxy, {
     },
     onRelease() {
         isDragging = false;
+        // Update startProgress to the current spin progress
+        startProgress = spin.progress();
         simulateInertia();
     }
 });
@@ -236,7 +242,10 @@ function updateRotation() {
 }
 
 function simulateInertia() {
-    if (isDragging) return;
+    if (isDragging) {
+        carouselFooter.classList.remove('hidden');
+        return;
+    }
 
     if (Math.abs(velocity) > 0.01) {  // Small threshold to stop the animation when it's slow enough
         // Move based on velocity
@@ -248,9 +257,11 @@ function simulateInertia() {
 
         // Use requestAnimationFrame for smooth animation
         requestAnimationFrame(simulateInertia);
+        
     } else {
         // Once inertia ends, return to normal spin
         gsap.to(spin, { timeScale: 1, duration: 1 });
+        carouselFooter.classList.remove('hidden');
     }
 }
 
