@@ -37,6 +37,22 @@
     <link rel="icon" href="assets/favicon/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.webp">
     <!-- Favicon -->
+
+    <!-- Ad block detection | ad blocker might make the page buggy -->
+    <script>
+      var blocked = false;
+      var testAd = document.createElement('div');
+      testAd.className = 'adsbox';  // Common name that ad blockers might block
+      document.body.appendChild(testAd);
+    
+      window.onload = function() {
+          if (testAd.offsetHeight === 0) {
+              blocked = true;
+              alert("It looks like you have an ad blocker enabled. Please consider whitelisting this site for the best experience!");
+          }
+          testAd.remove();  // Clean up the test element
+      };
+    </script>
 </head>
 
 <body>
