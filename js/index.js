@@ -196,7 +196,7 @@ var cards = gsap.utils.toArray(".creative-pro"),
     velocity = 0,      // Track velocity
     lastX = 0,         // Last X position
     lastTime = 0,      // Time for velocity calculation
-    deceleration = 0.975, // Deceleration factor
+    deceleration = 0.9, // Deceleration factor
     isDragging = false;
 
 const carouselFooter = document.querySelector(".carousel-footer");
@@ -227,6 +227,7 @@ Draggable.create(proxy, {
         lastTime = now;
 
         updateRotation.call(this);
+        carouselFooter.classList.add('hidden');
     },
     onRelease() {
         isDragging = false;

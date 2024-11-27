@@ -33,7 +33,7 @@ body {
     min-height: 100%;
     width: 100%;
     margin: 0;
-    scroll-snap-type: y;
+    scroll-snap-type: none;
 }
 
 body {
