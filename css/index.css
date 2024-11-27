@@ -547,12 +547,59 @@ footer {
     font-size: 14px;
 }
 
+/* Medium screens (tablets and below) */
+@media (max-width: 1024px) {
+    .info-bar {
+        height: 60vh;
+    }
+    .resume-button {
+        scale: 0.5;
+    }
+    .info h3 {
+        font-size: 14px;
+    }
+    .info p {
+        font-size: 11px;
+    }
+}
+
+/* Medium screens (tablets and below) */
+@media (max-width: 768px) {
+    .info-bar {
+        height: 50vh;
+    }
+    .info h3 {
+        font-size: 12px;
+    }
+    .info p {
+        font-size: 9px;
+    }
+}
+
+/* Medium screens (tablets and below) */
+@media (max-width: 480px) {
+    .info-bar {
+        height: 50vh;
+    }
+    .info h3 {
+        font-size: 10px;
+    }
+    .info p {
+        font-size: 8px;
+    }
+}
+@media (max-height: 480px) {
+    .info-bar {
+        height: 80vh;
+    }
+}
+
+
 
 /*
  *  EDUCATION SECTION
  */
 .education {
-    border: 2px solid rgb(0, 238, 255);
     height: 110vh;
     background-color: var(--background-gradient2);
     background: linear-gradient(var(--background-gradient2) 0%, var(--background-gradient2) var(--background-upper-bound), var(--background-gradient1) 100%);
@@ -571,7 +618,7 @@ footer {
 h1 {
     position: absolute;
     /* Fixes the title at the top */
-    top: 0;
+    top: 10px;
     left: 0;
     font-size: 64px;
     width: 100%;
