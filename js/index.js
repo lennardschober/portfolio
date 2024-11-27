@@ -173,9 +173,34 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // CAROUSEL
 gsap.registerPlugin(Draggable);
 
+let glob_radius = 0
+
+// Set radius based on screen width
+
+window.addEventListener('resize', getScreenSize);
+function getScreenSize() {
+    const old_rad = glob_radius;
+    var screenWidth = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    if (screenWidth < 480) {
+        glob_radius = 150;
+    }
+    else if (screenWidth < 768) {
+        glob_radius = 200;
+    } else if (screenWidth < 1024) {
+        glob_radius = 350;
+    } else {
+        glob_radius = 520;
+    }
+
+    if (old_rad != glob_radius) defineCards();
+}
+
+getScreenSize();
+
+function defineCards() {
 var cards = gsap.utils.toArray(".creative-pro"),
     dragDistancePerRotation = 4000,
-    radius = 520,
+    radius = glob_radius,
     proxy = document.createElement("div"),
     progressWrap = gsap.utils.wrap(0, 1),
     spin = gsap.fromTo(cards, {
@@ -192,74 +217,76 @@ var cards = gsap.utils.toArray(".creative-pro"),
     lastX = 0,         // Last X position
     lastTime = 0,      // Time for velocity calculation
     deceleration = 0.9, // Deceleration factor
-    isDragging = false;
+    isDragging = false;   
 
-const carouselFooter = document.querySelector(".carousel-footer");
+    const carouselFooter = document.querySelector(".carousel-footer");
+    
+    Draggable.create(proxy, {
+        trigger: ".demoWrapper",
+        type: "x",
+        allowNativeTouchScrolling: true,
+        onPress() {
+            gsap.killTweensOf(spin);
+            spin.timeScale(0);
+            startProgress = spin.progress();
+            isDragging = true;
+            lastX = this.x;
+            lastTime = Date.now(); // Record the starting time
+            
+            carouselFooter.classList.add('hidden');
+        },
+        onDrag() {
+            let now = Date.now();
+            let deltaX = this.x - lastX;  // Change in X position
+            let deltaTime = now - lastTime; // Time difference since last drag event
+    
+            // Calculate velocity (distance over time)
+            velocity = deltaX / deltaTime;
+    
+            lastX = this.x;
+            lastTime = now;
+    
+            updateRotation.call(this);
+            carouselFooter.classList.add('hidden');
+        },
+        onRelease() {
+            isDragging = false;
+            // Update startProgress to the current spin progress
+            startProgress = spin.progress();
+            simulateInertia();
+        }
+    });
 
-Draggable.create(proxy, {
-    trigger: ".demoWrapper",
-    type: "x",
-    allowNativeTouchScrolling: true,
-    onPress() {
-        gsap.killTweensOf(spin);
-        spin.timeScale(0);
-        startProgress = spin.progress();
-        isDragging = true;
-        lastX = this.x;
-        lastTime = Date.now(); // Record the starting time
-        
-        carouselFooter.classList.add('hidden');
-    },
-    onDrag() {
-        let now = Date.now();
-        let deltaX = this.x - lastX;  // Change in X position
-        let deltaTime = now - lastTime; // Time difference since last drag event
-
-        // Calculate velocity (distance over time)
-        velocity = deltaX / deltaTime;
-
-        lastX = this.x;
-        lastTime = now;
-
-        updateRotation.call(this);
-        carouselFooter.classList.add('hidden');
-    },
-    onRelease() {
-        isDragging = false;
-        // Update startProgress to the current spin progress
-        startProgress = spin.progress();
-        simulateInertia();
+    function updateRotation() {
+        let p = startProgress + (this.startX - this.x) / dragDistancePerRotation;
+        spin.progress(progressWrap(p));
     }
-});
-
-function updateRotation() {
-    let p = startProgress + (this.startX - this.x) / dragDistancePerRotation;
-    spin.progress(progressWrap(p));
+    
+    function simulateInertia() {
+        if (isDragging) {
+            carouselFooter.classList.remove('hidden');
+            return;
+        }
+    
+        if (Math.abs(velocity) > 0.01) {  // Small threshold to stop the animation when it's slow enough
+            // Move based on velocity
+            startProgress -= velocity * 0.01;  // Adjust progress based on velocity
+            spin.progress(progressWrap(startProgress));
+    
+            // Decrease velocity over time (simulate friction/inertia)
+            velocity *= deceleration;
+    
+            // Use requestAnimationFrame for smooth animation
+            requestAnimationFrame(simulateInertia);
+            
+        } else {
+            // Once inertia ends, return to normal spin
+            gsap.to(spin, { timeScale: 1, duration: 1 });
+            carouselFooter.classList.remove('hidden');
+        }
+    }
 }
 
-function simulateInertia() {
-    if (isDragging) {
-        carouselFooter.classList.remove('hidden');
-        return;
-    }
-
-    if (Math.abs(velocity) > 0.01) {  // Small threshold to stop the animation when it's slow enough
-        // Move based on velocity
-        startProgress -= velocity * 0.01;  // Adjust progress based on velocity
-        spin.progress(progressWrap(startProgress));
-
-        // Decrease velocity over time (simulate friction/inertia)
-        velocity *= deceleration;
-
-        // Use requestAnimationFrame for smooth animation
-        requestAnimationFrame(simulateInertia);
-        
-    } else {
-        // Once inertia ends, return to normal spin
-        gsap.to(spin, { timeScale: 1, duration: 1 });
-        carouselFooter.classList.remove('hidden');
-    }
-}
 
 // Function to check if mouse is inside a bounding box
 function isMouseInside(boundingBox, mousePosition) {
@@ -346,7 +373,6 @@ document.addEventListener("click", (event) => {
         const link = myCard.getAttribute("data-link"); // Get the link from the data attribute
         if (link) {
             window.open(link, "_blank"); // Open the link in a new tab
-            console.log("huh");
             return;
         }
     }
