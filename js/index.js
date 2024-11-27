@@ -19,6 +19,10 @@ document.addEventListener('mousemove', (ev) => {
     mouseX = ev.pageX;
     mouseY = ev.pageY;
 
+    // for carousel box highlights
+    mouseX2 = clientScrollX;
+    mouseY2 = clientScrollY;
+
     // features glowing
     const featureEls = document.querySelectorAll(".feature");
     featureEls.forEach((featureEl) => {
@@ -67,15 +71,6 @@ videoEl.addEventListener("timeupdate", function () {
         imageEl.style.display = "block"
     }
 });
-
-// When the user scrolls the page, execute my function 
-/*window.onscroll = function () { progressBar() };
-function progressBar() {
-    var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    var scrolled = (winScroll / height) * 100;
-    document.getElementById("myBar").style.width = scrolled + "%";
-}*/
 
 // reveal features on scroll
 document.addEventListener("DOMContentLoaded", async function () {
@@ -276,25 +271,12 @@ function isMouseInside(boundingBox, mousePosition) {
     );
 }
 
-// Function to get the current mouse position
-function getMousePosition() {
-    return {
-        x: mouseX2,
-        y: mouseY2
-    };
-}
-
 // Track mouse position
 let mouseX2 = 0;
 let mouseY2 = 0;
 
-document.addEventListener('mousemove', (event) => {
-    mouseX2 = event.clientX; // Update mouseX with current mouse position
-    mouseY2 = event.clientY; // Update mouseY with current mouse position
-});
-
 function updateCardInteraction() {
-    const mousePosition = getMousePosition(); // Get current mouse position
+    const mousePosition = {x: mouseX2, y: mouseY2}; // Get current mouse position
     const boxes = document.querySelectorAll(".card"); // Select the cards (update class if necessary)
 
     let hoveredCard = null; // Variable to store the card with the largest bounding box
@@ -357,27 +339,22 @@ function stopAnimationLoop() {
 startAnimationLoop();
 
 document.addEventListener("click", (event) => {
-    const mousePosition = getMousePosition(event);
     const boxes = document.querySelectorAll(".card"); // Select the cards
 
-    boxes.forEach(card => {
-        const boundingBox = card.getBoundingClientRect(); // Get the bounding box for each card
-        // Check if the mouse is inside the bounding box
-        let myCard = updateCardInteraction();
-        if (myCard) {
-            const link = myCard.getAttribute("data-link"); // Get the link from the data attribute
-            if (link) {
-                window.open(link, "_blank"); // Open the link in a new tab
-            }
+    let myCard = updateCardInteraction();
+    if (myCard) {
+        const link = myCard.getAttribute("data-link"); // Get the link from the data attribute
+        if (link) {
+            window.open(link, "_blank"); // Open the link in a new tab
+            console.log("huh");
+            return;
         }
-    });
+    }
 });
-
 
 
 // CURSOR INVERT
 document.onmousemove = function (e) {
     document.body.style.setProperty('--x', (e.clientX) + 'px');
     document.body.style.setProperty('--y', (e.clientY) + 'px');
-
 }
