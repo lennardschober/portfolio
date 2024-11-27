@@ -96,11 +96,19 @@ section {
 }
 
 .about-me {
-    min-height: 200vh;
     overflow: hidden;
     background: var(--background-gradient2);
 }
 
+.header-wrapper {
+    width: 100vw;
+    padding: 10px 0;
+    margin: 5vh 0;
+}
+
+.about-me h1 {
+    margin: 0; /* Reset margins to avoid further issues */
+}
 
 .glow-effect {
     position: absolute;
@@ -126,7 +134,7 @@ section {
     display: flex;
     min-height: 100%;
     width: 100%;
-    padding: 2rem;
+    padding: 10px;
     position: relative;
 }
 
@@ -373,8 +381,6 @@ footer {
 }
 
 .quote {
-    padding-top: 10vh;
-    padding-bottom: 5vh;
     position: relative;
     font-family: "Courier New", monospace;
     /* Monospaced font */
@@ -385,7 +391,8 @@ footer {
     /* Optional: Set a max-width if desired */
     display: block;
     /* Display as block to center within its container */
-    margin: 0 auto;
+    padding: 10px;
+    margin: 10px auto;
     /* Center the block horizontally */
     text-align: center;
     /* Center the text within the block */
@@ -553,7 +560,7 @@ footer {
         height: 60vh;
     }
     .resume-button {
-        scale: 0.5;
+        scale: 0.75;
     }
     .info h3 {
         font-size: 14px;
@@ -568,6 +575,9 @@ footer {
     .info-bar {
         height: 50vh;
     }
+    .resume-button {
+        scale: 0.6;
+    }
     .info h3 {
         font-size: 12px;
     }
@@ -580,6 +590,9 @@ footer {
 @media (max-width: 480px) {
     .info-bar {
         height: 50vh;
+    }
+    .resume-button {
+        scale: 0.4;
     }
     .info h3 {
         font-size: 10px;
@@ -600,7 +613,8 @@ footer {
  *  EDUCATION SECTION
  */
 .education {
-    height: 110vh;
+    height: 140vh;
+    padding-bottom: 10vh;
     background-color: var(--background-gradient2);
     background: linear-gradient(var(--background-gradient2) 0%, var(--background-gradient2) var(--background-upper-bound), var(--background-gradient1) 100%);
 }
@@ -608,24 +622,17 @@ footer {
 .education-container {
     display: flex;
     justify-content: center;
-    /* Center the timeline */
-    padding: 50px 0;
-    padding-bottom: 10vh;
     position: relative;
     overflow: hidden;
 }
 
 h1 {
-    position: absolute;
-    /* Fixes the title at the top */
-    top: 10px;
-    left: 0;
+    position: relative;
     font-size: 64px;
     width: 100%;
     z-index: 10;
     /* Makes sure it stays above other elements */
     padding: 10px 0px;
-    margin: 0;
     /* Adds some padding so the title doesn't touch the edge */
     text-align: center;
     /* Centers the text */
@@ -634,7 +641,6 @@ h1 {
 }
 
 .timeline {
-    margin-top: 10vh;
     margin-left: 3vw;
     margin-right: 3vw;
     /* Creates space between the title and the timeline */
@@ -743,7 +749,6 @@ h1 {
 }
 
 .education-image {
-    margin-top: 10vh;
     /* Creates space between the title and the timeline */
     display: flex;
     flex-direction: column;

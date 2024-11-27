@@ -30,13 +30,6 @@
 </head>
 
 <body>
-    <div class="header">
-        <!--
-        <div class="progress-container">
-            <div class="progress-bar" id="myBar"></div>
-        </div>
-        -->
-    </div>
     <section class="introsection" id="introsection">
         <video id="intro-video" preload="true" autoplay="autoplay" muted playsinline>
             <source src="assets/intro_video.mp4" type="video/mp4">
@@ -70,14 +63,6 @@
                     <span>Academic Qualifications</span>
                 </a>
             </div>
-            <!--
-            <div class="feature hidden">
-                <a href="#experience" class="feature-content">
-                    <strong>Experience</strong>
-                    <span>Jobs & Internships</span>
-                </a>
-            </div>
-            -->
             <div class="feature hidden">
                 <a href="#projects" class="feature-content">
                     <strong>Projects</strong>
@@ -87,13 +72,13 @@
         </div>
     </section>
     <section class="about-me" id="about-me">
-        <h1>ABOUT ME</h1>
-        <div class="container" style="margin-top: 150px;">
-            <div class="quote"><b>"I am always doing that which I cannot do, in order that I may learn how to do it"</b><br>
-                <span style="color: var(--text-color2); display: inline;">- Vincent van Gogh</span>
-            </div>
+        <div class="header-wrapper">
+            <h1>ABOUT ME</h1>
         </div>
-        <div class="container" style="padding-bottom: 35vh;">
+        <div class="quote"><b>"I am always doing that which I cannot do, in order that I may learn how to do it"</b>
+            <span style="color: var(--text-color2); display: inline;">- Vincent van Gogh</span>
+        </div>
+        <div class="container" style="padding-top: 5vh; padding-bottom: 35vh;">
             <div class="characteristics">
                 As a <span style="color: var(--primary-color); display: inline;">mathematician</span> and
                 <span style="color: var(--primary-color); display: inline;">computer scientist</span>, I thrive on
@@ -172,8 +157,10 @@
     </section>
 
     <section class="education" id="education">
-        <div class="education-container">
+        <div class="header-wrapper">
             <h1>EDUCATION</h1>
+        </div>
+        <div class="education-container">
             <div class="timeline">
                 <div class="timeline-item" style="top: 5%">
                     <div class="timeline-date">Oct. 2020</div>
@@ -219,7 +206,9 @@
     </section>
 
     <section class="projects" id="projects">
-        <h1>PROJECTS</h1>
+        <div class="header-wrapper">
+            <h1>PROJECTS</h1>
+        </div>
         <div class="demoWrapper">
             <!-- Card One -->
             <div class="card box creative-pro" data-link="https://lennardschober.github.io/cs_visualized/">
