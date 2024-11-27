@@ -552,6 +552,8 @@ footer {
  *  EDUCATION SECTION
  */
 .education {
+    border: 2px solid rgb(0, 238, 255);
+    height: 110vh;
     background-color: var(--background-gradient2);
     background: linear-gradient(var(--background-gradient2) 0%, var(--background-gradient2) var(--background-upper-bound), var(--background-gradient1) 100%);
 }
@@ -576,6 +578,7 @@ h1 {
     z-index: 10;
     /* Makes sure it stays above other elements */
     padding: 10px 0px;
+    margin: 0;
     /* Adds some padding so the title doesn't touch the edge */
     text-align: center;
     /* Centers the text */
@@ -584,11 +587,12 @@ h1 {
 }
 
 .timeline {
-    margin-top: 15vh;
-    margin-left: 50px;
+    margin-top: 10vh;
+    margin-left: 3vw;
+    margin-right: 3vw;
     /* Creates space between the title and the timeline */
     position: relative;
-    width: 100%;
+    width: 100vw;
     /* Adjust the width as needed */
     display: flex;
     flex-direction: column;
@@ -602,10 +606,9 @@ h1 {
     /* Space between date and description */
     align-items: center;
     width: 100%;
-    /* Full width for each timeline item */
-    margin: 20px 0;
-    height: 12vh;
-    position: relative;
+    height: auto;
+    position: absolute;
+    transform: translateY(-50%);
 }
 
 .timeline-item-none {
@@ -668,34 +671,33 @@ h1 {
 .timeline-item:before {
     content: "";
     position: absolute;
-    left: calc(25% - 9px);
+    left: calc(25% + 1px);
     /* Center the dot */
     top: 50%;
     width: 20px;
     height: 20px;
     background-color: var(--primary-color);
     border-radius: 50%;
-    transform: translateY(-50%);
+    transform: translate(-50%, -50%);
 }
 
 /* Dots on the line */
 .timeline-item-none:before {
     content: "";
     position: absolute;
-    left: calc(25% - 9px);
+    left: 25%;
     /* Center the dot */
     top: 50%;
-    width: 0px;
-    height: 0px;
+    width: 20px;
+    height: 20px;
     background-color: var(--primary-color);
     border-radius: 50%;
-    transform: translateY(-50%);
+    transform: translate(-50%, -50%);
 }
 
 .education-image {
-    margin-top: 150px;
+    margin-top: 10vh;
     /* Creates space between the title and the timeline */
-    padding: 50px;
     display: flex;
     flex-direction: column;
     /* Stack the images vertically */
@@ -714,7 +716,7 @@ h1 {
 }
 
 /* Medium screens (tablets and below) */
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-height: 1024px) {
     .education-image img {
         width: 40vw;
     }
@@ -730,13 +732,26 @@ h1 {
     .timeline-item p {
         font-size: 12px;        
     }
+    .timeline-item:before {
+        width: 15px;
+        height: 15px;
+    }
+    .timeline-description {
+        padding-left: 20px;
+    }
 }
 
-/* Small screens (mobile devices) */
 @media (max-width: 768px) {
     .education-image img {
         width: 0;
+        padding: 0;
+        margin: 0;
+        pointer-events: none;
     }
+}
+
+/* Small screens (mobile devices) */
+@media (max-width: 768px), (max-height: 768px) {
     h1 {
         font-size: 35px;
     }
@@ -749,13 +764,17 @@ h1 {
     .timeline-item p {
         font-size: 12px;        
     }
+    .timeline-item:before {
+        width: 12px;
+        height: 12px;
+    }
+    .timeline-description {
+        padding-left: 15px;
+    }
 }
 
 /* Extra small screens (smaller mobile devices) */
 @media (max-width: 480px) {
-    .education-image img {
-        width: 0;
-    }
     h1 {
         font-size: 25px;
     }
@@ -768,8 +787,48 @@ h1 {
     .timeline-item p {
         font-size: 9.6px;        
     }
+    .timeline-item:before {
+        width: 10px;
+        height: 10px;
+    }
+    .timeline-description {
+        padding-left: 10px;
+    }
+    .education-image img {
+        width: 0;
+        padding: 0;
+        margin: 0;
+        pointer-events: none;
+    }
 }
 
+@media (max-height: 480px) {
+    h1 {
+        font-size: 20px;
+    }
+    .timeline-date {
+        font-size: 10px;
+    }
+    .timeline-item h3 {
+        font-size: 10px;
+    }
+    .timeline-item p {
+        font-size: 7px;        
+    }
+    .timeline-item:before {
+        width: 7px;
+        height: 7px;
+    }
+    .timeline-description {
+        padding-left: 10px;
+    }
+    .education-image img {
+        width: 0;
+        padding: 0;
+        margin: 0;
+        pointer-events: none;
+    }
+}
 
 /*
  *  RESUME DOWNLOAD BUTTON
@@ -936,30 +995,44 @@ h1 {
 
 @media (max-width: 1500px) {
     .card {
+        font-size: 15px;
         width: 20vw;
+    }
+    .carousel-footer {
+        font-size: 18px;
     }
 }
 
 /* Medium screens (tablets and below) */
 @media (max-width: 1024px) {
     .card {
+        font-size: 12px;
         width: 20vw;
+    }
+    .carousel-footer {
+        font-size: 15px;
     }
 }
 
 /* Small screens (mobile devices) */
 @media (max-width: 768px) {
     .card {
-        width: 20vw;
+        font-size: 10px;
+        width: 25vw;
+    }
+    .carousel-footer {
+        font-size: 12px;
     }
 }
 
 /* Very small screens (mobile devices) */
 @media (max-width: 480px) {
     .card {
+        font-size: 8px;
+        width: 25vw;
+    }
+    .carousel-footer {
         font-size: 10px;
-        width: 20vw;
-        height: 20vw;
     }
 }
 
