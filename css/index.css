@@ -639,16 +639,14 @@ h1 {
     flex-direction: column;
     align-items: center;
     overflow: hidden;
-
-    /* Remove or modify the height */
-    /* height: 100%; */ /* ⛔ This forces container to be too short */
-    padding-top: 5vh;  /* Optional: add spacing above the heading */
+    padding-top: 10vh;  /* Optional: add spacing above the heading */
 }
 
 .education-container img {
     max-width: 80%;  /* Image tries to take 100% width of the container */
     max-height: 70%; /* Image tries to take 100% height of the container */
     object-fit: contain;
+    padding-bottom: 5vh;
 }
 
 
