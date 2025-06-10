@@ -638,7 +638,6 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 10vh;
     overflow: hidden;
 
     /* Remove or modify the height */
